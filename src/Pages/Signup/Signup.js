@@ -17,7 +17,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex flex-col justify-center items-center">
+    <div className="min-h-[85vh] flex flex-col justify-center items-center">
       <h2 className="text-2xl mb-3">Sign Up</h2>
       <div className="p-6 rounded-lg shadow-md bg-white min-w-[340px] md:min-w-[400px]">
         <form onSubmit={handleSubmit(signUpHandler)}>

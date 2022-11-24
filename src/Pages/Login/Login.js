@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "./../../Contexts/AuthProvider";
 
 const Login = () => {
+  const { googleLogin } = useContext(AuthContext);
   const inputStyle =
     "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none";
 
@@ -15,6 +17,15 @@ const Login = () => {
 
   const logInHandler = data => {
     console.log(data);
+  };
+
+  const googleLoginHandler = () => {
+    googleLogin()
+      .then(result => {
+        const user = result.user;
+        alert(`${user.displayName} logged in`);
+      })
+      .catch(error => console.error(error));
   };
 
   return (
@@ -83,7 +94,10 @@ const Login = () => {
           <button className="btn btn-primary">login</button>
         </form>
         <div className="divider">OR</div>
-        <button className="btn btn-outline btn-primary mx-auto flex">
+        <button
+          onClick={googleLoginHandler}
+          className="btn btn-outline btn-primary mx-auto flex"
+        >
           <FcGoogle className="inline-block w-5 h-5 mr-1"></FcGoogle>
           Continue with Google
         </button>

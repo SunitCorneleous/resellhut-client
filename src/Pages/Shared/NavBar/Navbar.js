@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Contexts/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOutUser } = useContext(AuthContext);
   const menuItems = (
     <>
       <li>
@@ -13,6 +15,12 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const logoutHandler = () => {
+    logOutUser()
+      .then(() => alert("user logged out"))
+      .catch(error => console.error(error));
+  };
 
   return (
     <div className=" bg-secondary py-3">
@@ -50,9 +58,15 @@ const Navbar = () => {
           <ul className="menu menu-horizontal p-0">{menuItems}</ul>
         </div>
         <div className="navbar-end">
-          <Link className="btn" to="/login">
-            login
-          </Link>
+          {user?.email ? (
+            <button onClick={logoutHandler} className="btn">
+              logout
+            </button>
+          ) : (
+            <Link className="btn" to="/login">
+              login
+            </Link>
+          )}
         </div>
       </div>
     </div>
