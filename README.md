@@ -9,3 +9,4 @@
 - React JS
 - React Router
 - Tailwind
+- React Icons
