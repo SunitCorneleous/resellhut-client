@@ -8,5 +8,6 @@
 
 - React JS
 - React Router
+- React-Hook-Form
 - Tailwind
 - React Icons

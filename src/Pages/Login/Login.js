@@ -1,16 +1,27 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const inputStyle =
     "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none";
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const logInHandler = data => {
+    console.log(data);
+  };
+
   return (
     <div className="min-h-[80vh] flex flex-col justify-center items-center">
-      <h2>Log in</h2>
+      <h2 className="text-2xl mb-3">Log in</h2>
       <div className="p-6 rounded-lg shadow-md bg-white min-w-[340px] md:min-w-[400px]">
-        <form>
+        <form onSubmit={handleSubmit(logInHandler)}>
           {/* email */}
           <div className="form-group mb-6">
             <label
@@ -22,13 +33,16 @@ const Login = () => {
             <input
               type="email"
               className={inputStyle}
+              {...register("email", { required: "Email Address is required" })}
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"
             ></input>
-            {/* <small id="emailHelp" className="block mt-1 text-xs text-gray-600">
-              We'll never share your email with anyone else.
-            </small> */}
+            {errors?.email && (
+              <small id="emailHelp" className="block mt-1 text-xs text-error">
+                {errors?.email.message}
+              </small>
+            )}
           </div>
           {/* password */}
           <div className="form-group mb-6">
@@ -41,9 +55,21 @@ const Login = () => {
             <input
               type="password"
               className={inputStyle}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Minimum password length 6 characters",
+                },
+              })}
               id="exampleInputPassword1"
               placeholder="Password"
             ></input>
+            {errors?.password && (
+              <small id="emailHelp" className="block mt-1 text-xs text-error">
+                {errors?.password.message}
+              </small>
+            )}
             <small className="block mt-2 text-sm text-primary">
               Don't have an account?{" "}
               <Link
@@ -54,7 +80,7 @@ const Login = () => {
               </Link>
             </small>
           </div>
-          <button className="btn btn-primary">log in</button>
+          <button className="btn btn-primary">login</button>
         </form>
         <div className="divider">OR</div>
         <button className="btn btn-outline btn-primary mx-auto flex">
