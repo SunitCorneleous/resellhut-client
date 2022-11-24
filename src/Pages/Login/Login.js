@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "./../../Contexts/AuthProvider";
+import useSaveUser from "../../hooks/useSaveUser";
 
 const Login = () => {
   const { googleLogin } = useContext(AuthContext);
@@ -14,16 +15,30 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  // save user to db
+  const [userToSave, setUserToSave] = useState("");
+  const token = useSaveUser(userToSave);
+
+  if (token) {
+    navigate("/");
+  }
 
   const logInHandler = data => {
     console.log(data);
   };
 
+  // console.log("token in login page:", token);
+
   const googleLoginHandler = () => {
     googleLogin()
       .then(result => {
         const user = result.user;
-        alert(`${user.displayName} logged in`);
+
+        const name = user.displayName;
+        const email = user.email;
+
+        setUserToSave({ name, email, role: "user" });
       })
       .catch(error => console.error(error));
   };
