@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../Contexts/AuthProvider";
 import Navbar from "../Pages/Shared/NavBar/Navbar";
 import { useQuery } from "@tanstack/react-query";
@@ -30,13 +30,14 @@ const DashboardLayout = () => {
       <Navbar></Navbar>
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex justify-end m-2">
+        <div className="drawer-content flex flex-col md:flex-row  m-2 md:min-h-[80vh]">
           <label
             htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden"
           >
             See Options
           </label>
+          <Outlet></Outlet>
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
@@ -57,7 +58,7 @@ const DashboardLayout = () => {
             {data.userType === "seller" && (
               <>
                 <li>
-                  <Link>Add A Product</Link>
+                  <Link to="/dashboard/addproduct">Add A Product</Link>
                 </li>
                 <li>
                   <Link>My Products</Link>
