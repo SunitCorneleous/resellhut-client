@@ -10,9 +10,11 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
 
-      <li>
-        <Link>Item 3</Link>
-      </li>
+      {user?.email && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
     </>
   );
 
