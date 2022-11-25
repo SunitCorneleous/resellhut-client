@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./../../../Contexts/AuthProvider";
 
 const AddProduct = () => {
@@ -8,6 +9,7 @@ const AddProduct = () => {
   const { register, handleSubmit } = useForm();
   const imageHostKey = process.env.REACT_APP_imageHostKey;
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const addProductHandler = data => {
     const image = data.img[0];
@@ -51,6 +53,9 @@ const AddProduct = () => {
             .then(res => {
               console.log(res.data);
               setLoading(false);
+              if (res.data.acknowledged) {
+                navigate("/dashboard/myproducts");
+              }
             });
         }
       })

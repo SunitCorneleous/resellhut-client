@@ -1,30 +1,12 @@
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../Contexts/AuthProvider";
+import useUser from "../hooks/useUser";
 import Navbar from "../Pages/Shared/NavBar/Navbar";
-import { useQuery } from "@tanstack/react-query";
-import Spinner from "./../Pages/Shared/Spinner/Spinner";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["email", user?.email],
-    queryFn: () =>
-      fetch(`http://localhost:5000/userType?email=${user?.email}`).then(res =>
-        res.json()
-      ),
-  });
-
-  if (isLoading) {
-    return (
-      <>
-        <Navbar></Navbar>
-        <Spinner></Spinner>
-      </>
-    );
-  }
-
+  const [userType] = useUser(user?.email);
   return (
     <>
       <Navbar></Navbar>
@@ -42,7 +24,7 @@ const DashboardLayout = () => {
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-slate-300 text-base-content">
-            {data.userType === "admin" && (
+            {userType === "admin" && (
               <>
                 <li>
                   <Link>All Sellers</Link>
@@ -55,20 +37,20 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
-            {data.userType === "seller" && (
+            {userType === "seller" && (
               <>
                 <li>
                   <Link to="/dashboard/addproduct">Add A Product</Link>
                 </li>
                 <li>
-                  <Link>My Products</Link>
+                  <Link to="/dashboard/myproducts">My Products</Link>
                 </li>
                 <li>
                   <Link>My Buyers</Link>
                 </li>
               </>
             )}
-            {data.userType === "user" && (
+            {userType === "user" && (
               <>
                 <li>
                   <Link>My Orders</Link>
