@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "./../../Contexts/AuthProvider";
 import useSaveUser from "../../hooks/useSaveUser";
 import { inputStyle } from "../../utilities/styles/styles";
+import useToken from "./../../hooks/useToken";
 
 const Login = () => {
-  const { googleLogin } = useContext(AuthContext);
+  const { googleLogin, loginUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -15,16 +16,28 @@ const Login = () => {
   } = useForm();
   const navigate = useNavigate();
 
+  // get token
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
+
   // save user to db
   const [userToSave, setUserToSave] = useState("");
-  const token = useSaveUser(userToSave);
+  const tokenGoogleLogin = useSaveUser(userToSave);
 
-  if (token) {
+  if (tokenGoogleLogin || token) {
     navigate("/");
   }
 
   const logInHandler = data => {
-    console.log(data);
+    loginUser(data.email, data.password)
+      .then(result => {
+        const user = result.user;
+
+        console.log(user);
+
+        setCreatedUserEmail(user.email);
+      })
+      .catch(error => console.log(error));
   };
 
   const googleLoginHandler = () => {
