@@ -1,16 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import Spinner from "../../Shared/Spinner/Spinner";
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  const {
+    data: categories,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () =>
+      axios.get("http://localhost:5000/categories").then(res => res.data),
+  });
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/categories")
-      .then(res => setCategories(res.data))
-      .catch(error => console.error(error));
-  }, []);
+  if (error) {
+    return (
+      <div className="p-10 md:my-16 my-8">
+        <h1 className="text-red-600 text-center text-2xl">
+          There is a problem getting the data
+        </h1>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="p-10 md:my-16 my-8">
+        <Spinner></Spinner>
+      </div>
+    );
+  }
 
   return (
     <div className="p-10 md:my-16 my-8">
