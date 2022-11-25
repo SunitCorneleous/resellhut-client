@@ -1,4 +1,4 @@
-# Resellx
+# Resellx Client
 
 ## Live link:
 
@@ -9,5 +9,6 @@
 - React JS
 - React Router
 - React-Hook-Form
+- React Query
 - Tailwind
 - React Icons

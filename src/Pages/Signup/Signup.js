@@ -1,26 +1,97 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
+import useSaveUser from "../../hooks/useSaveUser";
+import { inputStyle } from "../../utilities/styles/styles";
+import { AuthContext } from "./../../Contexts/AuthProvider";
 
 const Signup = () => {
-  const inputStyle =
-    "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none";
+  const { createUser, updateUser, googleLogin } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+
+  // save user to db
+  const [userToSave, setUserToSave] = useState("");
+  const token = useSaveUser(userToSave);
+
+  if (token) {
+    navigate("/");
+  }
 
   const signUpHandler = data => {
-    console.log(data);
+    createUser(data.email, data.password)
+      .then(result => {
+        const user = result.user;
+
+        console.log("CREATED USER: ", user);
+
+        const profile = {
+          displayName: data.name,
+        };
+
+        updateUser(profile)
+          .then(() => {
+            console.log("username added");
+
+            const userToSave = {
+              name: data.name,
+              email: data.email,
+              userType: data.userType,
+            };
+
+            setUserToSave(userToSave);
+          })
+          .catch(error => console.error("UPDATE USER ERROR: ", error));
+      })
+      .catch(error => console.error("CREATE USER ERROR: ", error));
+  };
+
+  const googleSignupHandler = () => {
+    googleLogin()
+      .then(result => {
+        const user = result.user;
+
+        const name = user.displayName;
+        const email = user.email;
+
+        // save to db
+        setUserToSave({ name, email, userType: "user" });
+      })
+      .catch(error => console.error(error));
   };
 
   return (
-    <div className="min-h-[85vh] flex flex-col justify-center items-center">
+    <div className="min-h-[85vh] flex flex-col justify-center items-center my-10">
       <h2 className="text-2xl mb-3">Sign Up</h2>
       <div className="p-6 rounded-lg shadow-md bg-white min-w-[340px] md:min-w-[400px]">
         <form onSubmit={handleSubmit(signUpHandler)}>
+          {/* name */}
+          <div className="form-group mb-6">
+            <label
+              htmlFor="exampleInputName"
+              className="form-label inline-block mb-2 text-gray-700"
+            >
+              Full Name
+            </label>
+            <input
+              type="text"
+              className={inputStyle}
+              {...register("name", { required: "Name is required" })}
+              id="exampleInputName"
+              aria-describedby="nameHelp"
+              placeholder="Enter name"
+            ></input>
+            {errors?.name && (
+              <small className="block mt-1 text-xs text-error">
+                {errors?.name.message}
+              </small>
+            )}
+          </div>
           {/* email */}
           <div className="form-group mb-6">
             <label
@@ -38,7 +109,7 @@ const Signup = () => {
               placeholder="Enter email"
             ></input>
             {errors?.email && (
-              <small id="emailHelp" className="block mt-1 text-xs text-error">
+              <small className="block mt-1 text-xs text-error">
                 {errors?.email.message}
               </small>
             )}
@@ -65,7 +136,7 @@ const Signup = () => {
               placeholder="Password"
             ></input>
             {errors?.password && (
-              <small id="emailHelp" className="block mt-1 text-xs text-error">
+              <small className="block mt-1 text-xs text-error">
                 {errors?.password.message}
               </small>
             )}
@@ -98,7 +169,10 @@ const Signup = () => {
           <button className="btn btn-primary">signup</button>
         </form>
         <div className="divider">OR</div>
-        <button className="btn btn-outline btn-primary mx-auto flex">
+        <button
+          onClick={googleSignupHandler}
+          className="btn btn-outline btn-primary mx-auto flex"
+        >
           <FcGoogle className="inline-block w-5 h-5 mr-1"></FcGoogle>
           Continue with Google
         </button>

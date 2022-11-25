@@ -4,18 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "./../../Contexts/AuthProvider";
 import useSaveUser from "../../hooks/useSaveUser";
+import { inputStyle } from "../../utilities/styles/styles";
 
 const Login = () => {
   const { googleLogin } = useContext(AuthContext);
-  const inputStyle =
-    "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none";
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+
   // save user to db
   const [userToSave, setUserToSave] = useState("");
   const token = useSaveUser(userToSave);
@@ -28,8 +27,6 @@ const Login = () => {
     console.log(data);
   };
 
-  // console.log("token in login page:", token);
-
   const googleLoginHandler = () => {
     googleLogin()
       .then(result => {
@@ -38,7 +35,8 @@ const Login = () => {
         const name = user.displayName;
         const email = user.email;
 
-        setUserToSave({ name, email, role: "user" });
+        // save to db
+        setUserToSave({ name, email, userType: "user" });
       })
       .catch(error => console.error(error));
   };
