@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "./../../Contexts/AuthProvider";
 import useSaveUser from "../../hooks/useSaveUser";
@@ -14,7 +14,11 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  // navigate to right route
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // get token
   const [createdUserEmail, setCreatedUserEmail] = useState("");
@@ -24,8 +28,9 @@ const Login = () => {
   const [userToSave, setUserToSave] = useState("");
   const tokenGoogleLogin = useSaveUser(userToSave);
 
+  // after getting token redirect to right route
   if (tokenGoogleLogin || token) {
-    navigate("/");
+    navigate(from, { replace: true });
   }
 
   const logInHandler = data => {

@@ -8,6 +8,7 @@
 
 - React JS
 - React Router
+- Firebase
 - React-Hook-Form
 - React Query
 - Tailwind

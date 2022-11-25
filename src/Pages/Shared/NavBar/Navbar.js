@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const menuItems = (
     <>
       <li>
@@ -20,7 +22,10 @@ const Navbar = () => {
 
   const logoutHandler = () => {
     logOutUser()
-      .then(() => alert("user logged out"))
+      .then(() => {
+        navigate("/");
+        alert("user logged out");
+      })
       .catch(error => console.error(error));
   };
 
