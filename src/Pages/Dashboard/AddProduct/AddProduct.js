@@ -1,6 +1,57 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "./../../../Contexts/AuthProvider";
 
 const AddProduct = () => {
+  const { user } = useContext(AuthContext);
+  const { register, handleSubmit } = useForm();
+  const imageHostKey = process.env.REACT_APP_imageHostKey;
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/categories")
+      .then(res => setCategories(res.data));
+  }, []);
+
+  const addProductHandler = data => {
+    const image = data.img[0];
+    const formData = new FormData();
+
+    formData.append("image", image);
+
+    setLoading(true);
+
+    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+
+    //save image to image hosting
+    axios.post(url, formData).then(imgData => {
+      if (imgData.data.success) {
+        const product = {
+          name: data.name,
+          category: data.category,
+          resellPrice: data.resellPrice,
+          originalPrice: data.originalPrice,
+          condition: data.condition,
+          details: data.details,
+          location: data.location,
+          phone: data.phone,
+          purchaseYear: data.purchaseYear,
+          yearUsed: data.yearUsed,
+          image: imgData.data.data.url,
+          sellerName: user.displayName,
+          sellerEmail: user.email,
+        };
+
+        setLoading(false);
+
+        console.log(product);
+      }
+    });
+  };
+
   return (
     <div className="min-h-[70vh] w-full">
       <div className="py-7">
@@ -8,12 +59,16 @@ const AddProduct = () => {
           Add A Laptop to Sell
         </h1>
 
-        <form className="p-5 bg-slate-300 rounded-md my-4 w-10/12 mx-auto">
+        <form
+          onSubmit={handleSubmit(addProductHandler)}
+          className="p-5 bg-slate-300 rounded-md my-4 w-10/12 mx-auto"
+        >
           <div className="form-control">
             <label className="label">
               <span className="label-text">Product Name:</span>
             </label>
             <input
+              {...register("name")}
               type="text"
               placeholder="Enter Product Name"
               className="input input-bordered w-full"
@@ -23,12 +78,12 @@ const AddProduct = () => {
             <label className="label">
               <span className="label-text">Category:</span>
             </label>
-            <select className="select text-base">
-              <option value="user" defaultValue>
-                Budget
-              </option>
-              <option value="seller">Mid-range</option>
-              <option value="seller">Gaming</option>
+            <select {...register("category")} className="select text-base">
+              {categories?.map(category => (
+                <option key={category._id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex flex-col md:flex-row">
@@ -37,6 +92,7 @@ const AddProduct = () => {
                 <span className="label-text">Resell Price:</span>
               </label>
               <input
+                {...register("resellPrice")}
                 type="number"
                 placeholder="Enter Resell Price"
                 className="input input-bordered w-full"
@@ -47,6 +103,7 @@ const AddProduct = () => {
                 <span className="label-text">Original Price:</span>
               </label>
               <input
+                {...register("originalPrice")}
                 type="number"
                 placeholder="Original Price"
                 className="input input-bordered w-full"
@@ -59,6 +116,7 @@ const AddProduct = () => {
                 <span className="label-text">Year of purchase:</span>
               </label>
               <input
+                {...register("purchaseYear")}
                 type="number"
                 placeholder="Enter Year of purchase"
                 className="input input-bordered w-full"
@@ -69,6 +127,7 @@ const AddProduct = () => {
                 <span className="label-text">Condition:</span>
               </label>
               <input
+                {...register("condition")}
                 type="text"
                 placeholder="Laptop condition"
                 className="input input-bordered w-full"
@@ -81,6 +140,7 @@ const AddProduct = () => {
                 <span className="label-text">Year used:</span>
               </label>
               <input
+                {...register("yearUsed")}
                 type="text"
                 placeholder="Enter how long used"
                 className="input input-bordered w-full"
@@ -90,7 +150,11 @@ const AddProduct = () => {
               <label className="label">
                 <span className="label-text">Upload a picture:</span>
               </label>
-              <input type="file" className="file-input file-input-secondary" />
+              <input
+                {...register("img")}
+                type="file"
+                className="file-input file-input-secondary"
+              />
             </div>
           </div>
           <div className="flex flex-col md:flex-row">
@@ -99,6 +163,7 @@ const AddProduct = () => {
                 <span className="label-text">Phone number</span>
               </label>
               <input
+                {...register("phone")}
                 type="number"
                 placeholder="Enter your phone number"
                 className="input input-bordered w-full"
@@ -109,6 +174,7 @@ const AddProduct = () => {
                 <span className="label-text">Enter your location:</span>
               </label>
               <input
+                {...register("location")}
                 type="text"
                 placeholder="Enter your location"
                 className="input input-bordered w-full"
@@ -120,11 +186,14 @@ const AddProduct = () => {
               <span className="label-text">Laptop details:</span>
             </label>
             <textarea
+              {...register("details")}
               className="textarea min-h-[100px] max-h-[100px]"
               placeholder="Enter details about your laptop"
             ></textarea>
           </div>
-          <button className="btn btn-primary mt-3">add laptop</button>
+          <button disabled={loading} className="btn btn-primary mt-3">
+            {loading ? "loading..." : "add product"}
+          </button>
         </form>
       </div>
     </div>
