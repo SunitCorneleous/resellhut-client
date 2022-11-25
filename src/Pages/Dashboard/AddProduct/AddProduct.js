@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "./../../../Contexts/AuthProvider";
 
@@ -7,14 +7,7 @@ const AddProduct = () => {
   const { user } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const imageHostKey = process.env.REACT_APP_imageHostKey;
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/categories")
-      .then(res => setCategories(res.data));
-  }, []);
 
   const addProductHandler = data => {
     const image = data.img[0];
@@ -27,29 +20,44 @@ const AddProduct = () => {
     const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
 
     //save image to image hosting
-    axios.post(url, formData).then(imgData => {
-      if (imgData.data.success) {
-        const product = {
-          name: data.name,
-          category: data.category,
-          resellPrice: data.resellPrice,
-          originalPrice: data.originalPrice,
-          condition: data.condition,
-          details: data.details,
-          location: data.location,
-          phone: data.phone,
-          purchaseYear: data.purchaseYear,
-          yearUsed: data.yearUsed,
-          image: imgData.data.data.url,
-          sellerName: user.displayName,
-          sellerEmail: user.email,
-        };
+    axios
+      .post(url, formData)
+      .then(imgData => {
+        if (imgData.data.success) {
+          const product = {
+            name: data.name,
+            category: data.category,
+            resellPrice: data.resellPrice,
+            originalPrice: data.originalPrice,
+            condition: data.condition,
+            details: data.details,
+            location: data.location,
+            phone: data.phone,
+            purchaseYear: data.purchaseYear,
+            yearUsed: data.yearUsed,
+            image: imgData.data.data.url,
+            sellerName: user.displayName,
+            sellerEmail: user.email,
+          };
 
-        setLoading(false);
+          const config = {
+            headers: {
+              authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+          };
 
-        console.log(product);
-      }
-    });
+          axios
+            .post("http://localhost:5000/products", product, config)
+            .then(res => {
+              console.log(res.data);
+              setLoading(false);
+            });
+        }
+      })
+      .catch(error => {
+        console.error(error.response);
+      });
+    setLoading(false);
   };
 
   return (
@@ -78,12 +86,17 @@ const AddProduct = () => {
             <label className="label">
               <span className="label-text">Category:</span>
             </label>
-            <select {...register("category")} className="select text-base">
-              {categories?.map(category => (
-                <option key={category._id} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
+            <select
+              {...register("category")}
+              className="select text-base"
+              required
+            >
+              <option value="Budget" defaultValue>
+                Budget
+              </option>
+              <option value="Mid-range">Mid-range</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Apple">Apple</option>
             </select>
           </div>
           <div className="flex flex-col md:flex-row">

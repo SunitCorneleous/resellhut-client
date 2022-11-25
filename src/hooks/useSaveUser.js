@@ -11,6 +11,9 @@ const useSaveUser = user => {
     const url = "http://localhost:5000/users";
 
     if (user) {
+      if (user.userType === "seller") {
+        user.verified = false;
+      }
       axios
         .post(url, user)
         .then(res => {
