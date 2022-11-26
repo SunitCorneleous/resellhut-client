@@ -41,7 +41,7 @@ const Categories = () => {
       <div className="w-10/12 mx-auto my-4 flex justify-around mt-12 flex-col md:flex-row">
         {categories.map(category => (
           <Link
-            to="/category"
+            to={`/category/${category._id}`}
             key={category._id}
             className="w-52 border-4 text-2xl font-medium mb-3 md:mb-0 border-primary mx-auto py-3 px-1 rounded-md text-center hover:bg-primary text-primary  hover:text-warning cursor-pointer"
           >

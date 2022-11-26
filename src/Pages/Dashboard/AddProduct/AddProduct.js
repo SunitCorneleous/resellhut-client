@@ -144,12 +144,17 @@ const AddProduct = () => {
               <label className="label">
                 <span className="label-text">Condition:</span>
               </label>
-              <input
+              <select
                 {...register("condition")}
-                type="text"
-                placeholder="Laptop condition"
-                className="input input-bordered w-full"
-              />
+                className="select text-base"
+                required
+              >
+                <option value="Good" defaultValue>
+                  Good
+                </option>
+                <option value="Fresh">Fresh</option>
+                <option value="Fair">Fair</option>
+              </select>
             </div>
           </div>
           <div className="flex flex-col md:flex-row">
