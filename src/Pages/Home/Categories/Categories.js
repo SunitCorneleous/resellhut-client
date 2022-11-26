@@ -35,7 +35,7 @@ const Categories = () => {
 
   return (
     <div className="p-10 md:my-16 my-8">
-      <h1 className="text-center text-primary text-2xl md:text-4xl font-bold">
+      <h1 className="text-center text-primary text-2xl md:text-4xl font-semibold">
         Browse Laptops by Categories
       </h1>
       <div className="w-10/12 mx-auto my-4 flex justify-around mt-12 flex-col md:flex-row">
