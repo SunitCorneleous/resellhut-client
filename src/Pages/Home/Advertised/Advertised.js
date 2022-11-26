@@ -26,7 +26,7 @@ const Advertised = ({ laptops }) => {
   };
 
   return (
-    <div className="md:w-10/12 mx-auto py-12 ">
+    <div className="md:w-10/12 mx-auto mt-8 md:py-12 ">
       <h1 className="text-center text-4xl font-semibold text-primary">
         Laptops with great deals
       </h1>

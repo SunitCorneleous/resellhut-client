@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoLocation } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
+import { AuthContext } from "../../Contexts/AuthProvider";
+import useUser from "../../hooks/useUser";
 
-const ItemCard = ({ laptop }) => {
-  console.log(laptop);
+const ItemCard = ({ laptop, setProductToBook }) => {
+  const { user } = useContext(AuthContext);
+  const [userType] = useUser(user?.email);
+
   const {
     name,
     image,
@@ -16,10 +20,11 @@ const ItemCard = ({ laptop }) => {
     purchaseYear,
     posted,
     condition,
+    details,
   } = laptop;
 
   return (
-    <div className="min-w-[350px] max-w-[350px] h-auto m-3 mx-auto rounded-md bg-slate-100 shadow">
+    <div className="min-w-[350px] max-w-[350px] h-auto m-3 mx-auto rounded-md bg-base-100 shadow-md">
       <img
         className="w-full rounded-md h-[230px] object-cover"
         src={image}
@@ -51,8 +56,19 @@ const ItemCard = ({ laptop }) => {
             <p>Purchased Year: {purchaseYear}</p>
           </div>
         </div>
+        <p className="my-5">{details.slice(0, 45) + "..."}</p>
         <div className="flex items-end justify-between">
-          <button className="btn btn-primary mt-1">book now</button>
+          {userType === "user" ? (
+            <label
+              onClick={() => setProductToBook(laptop)}
+              htmlFor="book-now-modal"
+              className="btn btn-primary mt-1"
+            >
+              book now
+            </label>
+          ) : (
+            ""
+          )}
           <div>
             <p className="text-sm">Condition: {condition}</p>
             <p className="text-sm">Date posted: {posted.slice(0, 10)}</p>

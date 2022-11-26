@@ -17,7 +17,7 @@ const Categories = () => {
 
   if (error) {
     return (
-      <div className="p-10 md:my-16 my-8">
+      <div className="p-10 md:my-12 my-8">
         <h1 className="text-red-600 text-center text-2xl">
           There is a problem getting the data
         </h1>

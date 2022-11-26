@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import BookNowModal from "../Shared/BookNowModal/BookNowModal";
 import ItemCard from "./ItemCard";
 
 const Category = () => {
   const laptops = useLoaderData();
   const categoryName = laptops[0]?.category;
+  const [productToBook, setProductToBook] = useState("");
 
   if (laptops.length === 0) {
     return (
@@ -30,9 +32,14 @@ const Category = () => {
       <div className="w-[95%] md:w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 lg:grid-cols-3 mt-6">
         {/* item cards */}
         {laptops.map(laptop => (
-          <ItemCard key={laptop._id} laptop={laptop}></ItemCard>
+          <ItemCard
+            key={laptop._id}
+            laptop={laptop}
+            setProductToBook={setProductToBook}
+          ></ItemCard>
         ))}
       </div>
+      <BookNowModal productToBook={productToBook}></BookNowModal>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import BannerImg from "./../../../assets/HomeBanner.svg";
 
 const HomeBanner = () => {
   return (
-    <div className="md:w-10/12 mx-auto py-4 rounded-md flex-col md:flex-row flex justify-around items-center">
+    <div className="md:w-10/12 mx-auto py-12 rounded-md flex-col md:flex-row flex justify-around items-center">
       <div className="md:w-[50%] w-11/12">
         <h1 className="text-accent font-semibold md:text-5xl text-2xl">
           Buy and Sell laptops
