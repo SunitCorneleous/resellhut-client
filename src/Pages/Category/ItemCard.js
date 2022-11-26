@@ -56,7 +56,7 @@ const ItemCard = ({ laptop, setProductToBook }) => {
             <p>Purchased Year: {purchaseYear}</p>
           </div>
         </div>
-        <p className="my-5">{details.slice(0, 45) + "..."}</p>
+        <p className="my-5">{details.slice(0, 80) + "..."}</p>
         <div className="flex items-end justify-between">
           {userType === "user" ? (
             <label

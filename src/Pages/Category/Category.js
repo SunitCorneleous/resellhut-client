@@ -31,13 +31,17 @@ const Category = () => {
       </h1>
       <div className="w-[95%] md:w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 lg:grid-cols-3 mt-6">
         {/* item cards */}
-        {laptops.map(laptop => (
-          <ItemCard
-            key={laptop._id}
-            laptop={laptop}
-            setProductToBook={setProductToBook}
-          ></ItemCard>
-        ))}
+        {laptops.map(laptop =>
+          laptop.saleStatus === "sold" ? (
+            ""
+          ) : (
+            <ItemCard
+              key={laptop._id}
+              laptop={laptop}
+              setProductToBook={setProductToBook}
+            ></ItemCard>
+          )
+        )}
       </div>
       <BookNowModal productToBook={productToBook}></BookNowModal>
     </div>

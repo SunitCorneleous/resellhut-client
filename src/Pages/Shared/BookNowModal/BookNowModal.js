@@ -20,6 +20,7 @@ const BookNowModal = ({ productToBook }) => {
       location: form.location.value,
       sellerEmail: productToBook.sellerEmail,
       productId: productToBook._id,
+      status: "unpaid",
     };
 
     axios

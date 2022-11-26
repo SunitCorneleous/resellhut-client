@@ -38,7 +38,7 @@ const Advertised = ({ laptops }) => {
                 <img
                   src={laptop.image}
                   alt="carousel"
-                  className="w-10/12 md:w-[40%] h-[300px] rounded-md"
+                  className="w-10/12 md:w-[45%] h-[300px] rounded-md"
                 />
                 <div className="text-xl mt-5 md:mt-0">
                   <h2 className="font-semibold text-2xl">{laptop.name}</h2>

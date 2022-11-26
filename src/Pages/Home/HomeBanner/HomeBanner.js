@@ -10,8 +10,8 @@ const HomeBanner = () => {
           Buy and Sell laptops
         </h1>
         <p className="text-2xl mt-2 text-slate-600">
-          <span className="text-primary font-bold">#1</span> site to buy and
-          sell laptops
+          <span className="text-primary font-bold text-4xl">#1</span> site to
+          buy and sell laptops
         </p>
         <div className="mt-5">
           <p className="text-2xl text-slate-600">
