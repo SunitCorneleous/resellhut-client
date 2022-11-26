@@ -13,3 +13,4 @@
 - React Query
 - Tailwind
 - React Icons
+- React Slideshow Image
