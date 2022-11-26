@@ -1,13 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { IoLocation } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
-import { AuthContext } from "../../Contexts/AuthProvider";
-import useUser from "../../hooks/useUser";
 
 const ItemCard = ({ laptop, setProductToBook }) => {
-  const { user } = useContext(AuthContext);
-  const [userType] = useUser(user?.email);
-
   const {
     name,
     image,
@@ -58,20 +53,19 @@ const ItemCard = ({ laptop, setProductToBook }) => {
         </div>
         <p className="my-5">{details.slice(0, 80) + "..."}</p>
         <div className="flex items-end justify-between">
-          {userType === "user" ? (
-            <label
-              onClick={() => setProductToBook(laptop)}
-              htmlFor="book-now-modal"
-              className="btn btn-primary mt-1"
-            >
-              book now
-            </label>
-          ) : (
-            ""
-          )}
+          <label
+            onClick={() => setProductToBook(laptop)}
+            htmlFor="book-now-modal"
+            className="btn btn-primary mt-1"
+          >
+            book now
+          </label>
           <div>
             <p className="text-sm">Condition: {condition}</p>
             <p className="text-sm">Date posted: {posted.slice(0, 10)}</p>
+            <button className="btn btn-xs btn-ghost mt-3">
+              report product
+            </button>
           </div>
         </div>
       </div>

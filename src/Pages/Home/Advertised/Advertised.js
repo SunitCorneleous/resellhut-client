@@ -32,7 +32,7 @@ const Advertised = ({ laptops }) => {
       </h1>
       <div className="w-full md:w-11/12 mx-auto my-20">
         <Fade {...properties}>
-          {laptops.map(laptop => (
+          {laptops?.map(laptop => (
             <div key={laptop._id} className="each-slide">
               <div className="flex flex-col md:flex-row items-center mx-auto md:w-10/12 md:justify-around">
                 <img

@@ -44,7 +44,11 @@ const MyProducts = () => {
   };
 
   const advertiseHandler = id => {
-    fetch(`http://localhost:5000/advertisement/${id}`)
+    fetch(`http://localhost:5000/advertisement/${id}`, {
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then(res => res.json())
       .then(data => {
         console.log(data);

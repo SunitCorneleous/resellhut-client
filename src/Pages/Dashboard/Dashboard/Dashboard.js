@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-[70vh] w-full flex justify-center">
-      <div className="mt-[150px] text-3xl text-primary">
+      <div className="mt-[150px] text-xl md:text-3xl text-primary">
         <h1 className="text-center mb-6 font-semibold">Profile</h1>
         <p>
           Name: <span>{user.displayName}</span>

@@ -8,9 +8,11 @@ const Home = () => {
   const { data: laptops } = useQuery({
     queryKey: ["advertisement"],
     queryFn: () => {
-      return fetch("http://localhost:5000/advertisement").then(res =>
-        res.json()
-      );
+      return fetch("http://localhost:5000/advertisement", {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then(res => res.json());
     },
   });
 

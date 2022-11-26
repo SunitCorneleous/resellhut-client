@@ -29,7 +29,7 @@ const Category = () => {
       <h1 className="text-2xl md:text-4xl font-bold text-neutral text-center">
         {categoryName} Laptops
       </h1>
-      <div className="w-[95%] md:w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 lg:grid-cols-3 mt-6">
+      <div className="w-[95%] md:w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-5 lg:grid-cols-3 mt-6">
         {/* item cards */}
         {laptops.map(laptop =>
           laptop.saleStatus === "sold" ? (

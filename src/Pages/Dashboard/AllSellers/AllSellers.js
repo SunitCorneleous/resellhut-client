@@ -2,17 +2,30 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 
+const config = {
+  headers: {
+    authorization: `bearer ${localStorage.getItem("accessToken")}`,
+  },
+};
+
 const AllSellers = () => {
   const { data, refetch } = useQuery({
     queryKey: ["allsellers"],
     queryFn: () => {
-      return fetch("http://localhost:5000/allsellers", {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then(res => res.json());
+      return fetch("http://localhost:5000/allsellers", config).then(res =>
+        res.json()
+      );
     },
   });
+
+  const verifySellerHandler = email => {
+    axios
+      .get(`http://localhost:5000/verifyseller?email=${email}`, config)
+      .then(res => {
+        console.log(res);
+        refetch();
+      });
+  };
 
   const deleteHandler = (id, email) => {
     const confirmation = window.confirm(
@@ -24,11 +37,10 @@ const AllSellers = () => {
     }
 
     axios
-      .delete(`http://localhost:5000/allsellers?id=${id}&email=${email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .delete(
+        `http://localhost:5000/allsellers?id=${id}&email=${email}`,
+        config
+      )
       .then(res => {
         console.log(res);
         refetch();
@@ -62,6 +74,7 @@ const AllSellers = () => {
                   <button
                     disabled={seller.verified}
                     className="btn btn-sm btn-warning"
+                    onClick={() => verifySellerHandler(seller.email)}
                   >
                     {seller.verified ? "verified" : "unverified"}
                   </button>
