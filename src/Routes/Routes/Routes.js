@@ -13,6 +13,7 @@ import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import AllSellers from "./../../Pages/Dashboard/AllSellers/AllSellers";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import Reported from "./../../Pages/Dashboard/Reported/Reported";
+import ErrorPage from "./../../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup></Signup>,
+      },
+      {
+        path: "/*",
+        element: <ErrorPage></ErrorPage>,
       },
     ],
   },
