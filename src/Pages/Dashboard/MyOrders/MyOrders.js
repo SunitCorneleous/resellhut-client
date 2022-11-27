@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../../Contexts/AuthProvider";
+import { Link } from "react-router-dom";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const { data } = useQuery({
-    queryKey: ["buyers"],
+    queryKey: ["bookings", user?.email],
     queryFn: () => {
       return fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
         headers: {
@@ -23,6 +24,7 @@ const MyOrders = () => {
           <thead>
             <tr className="text-center">
               <th></th>
+              <th></th>
               <th>Laptop Name</th>
               <th>Price</th>
               <th>Status</th>
@@ -30,14 +32,23 @@ const MyOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((user, index) => (
-              <tr key={user._id} className="text-center">
+            {data?.map((product, index) => (
+              <tr key={product._id} className="text-center">
                 <th>{index + 1}</th>
-                <td>{user.item}</td>
-                <td>{user.price}</td>
-                <td className="uppercase font-semibold">{user.status}</td>
+                <th className="w-[150px]">
+                  <img
+                    src={product.image}
+                    alt="booked"
+                    className="w-full h-20 rounded-md border border-primary"
+                  />
+                </th>
+                <td>{product.item}</td>
+                <td>{product.price}</td>
+                <td className="uppercase font-semibold">{product.status}</td>
                 <td>
-                  <button className="btn btn-sm btn-primary">pay</button>
+                  <Link to="/payment" className="btn btn-sm btn-primary">
+                    pay
+                  </Link>
                 </td>
               </tr>
             ))}

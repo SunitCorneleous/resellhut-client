@@ -8,7 +8,11 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return <Spinner></Spinner>;
+    return (
+      <div className="min-h-[60vh] flex justify-center items-center">
+        <Spinner></Spinner>
+      </div>
+    );
   }
 
   if (!user) {

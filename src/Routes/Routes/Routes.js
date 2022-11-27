@@ -15,6 +15,7 @@ import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import Reported from "./../../Pages/Dashboard/Reported/Reported";
 import ErrorPage from "./../../Pages/ErrorPage/ErrorPage";
 import { config } from "../../utilities/authToken/authToken";
+import PaymentPage from "../../Pages/PaymentPage/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,14 @@ export const router = createBrowserRouter([
       {
         path: "/*",
         element: <ErrorPage></ErrorPage>,
+      },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRoute>
+            <PaymentPage></PaymentPage>
+          </PrivateRoute>
+        ),
       },
     ],
   },
