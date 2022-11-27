@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { toast } from "react-hot-toast";
+import axios from "axios";
+import { config } from "../../utilities/authToken/authToken";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ product, booking }) => {
   const stripe = useStripe();
@@ -8,6 +11,7 @@ const CheckoutForm = ({ product, booking }) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate();
 
   const { resellPrice } = product;
 
@@ -70,7 +74,26 @@ const CheckoutForm = ({ product, booking }) => {
       setProcessing(false);
       toast.success("payment successful");
 
+      console.log(paymentIntent);
+
       // save payment info in db
+      const paymentInfo = {
+        transactionId: paymentIntent.id,
+        user: booking.buyer,
+        email: booking.email,
+        product: product.name,
+        productId: product._id,
+        bookingId: booking._id,
+      };
+
+      axios
+        .post("http://localhost:5000/payment", paymentInfo, config)
+        .then(res => {
+          if (res.data.acknowledged) {
+            console.log(res.data);
+            navigate("/dashboard/myorders");
+          }
+        });
     }
 
     console.log("Payment Intent:", paymentIntent);

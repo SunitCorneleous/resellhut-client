@@ -48,12 +48,16 @@ const MyOrders = () => {
                   {product.status}
                 </td>
                 <td>
-                  <Link
-                    to={`/payment/${product._id}`}
-                    className="btn btn-sm btn-primary"
-                  >
-                    pay
-                  </Link>
+                  {product?.status === "paid" ? (
+                    <div className="btn btn-sm btn-disabled">paid</div>
+                  ) : (
+                    <Link
+                      to={`/payment/${product._id}`}
+                      className="btn btn-sm btn-primary"
+                    >
+                      {product.status === "unpaid" ? "pay" : "paid"}
+                    </Link>
+                  )}
                 </td>
               </tr>
             ))}
