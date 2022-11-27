@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React from "react";
 import { config } from "../../../utilities/authToken/authToken";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const Reported = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["reportItem"],
     queryFn: () => {
       return fetch("http://localhost:5000/reportItem", config).then(res =>
@@ -17,11 +18,26 @@ const Reported = () => {
     return <Spinner></Spinner>;
   }
 
-  console.log(data);
+  const deleteHandler = (id, reportid) => {
+    const confirmation = window.confirm(
+      "Are your sure you want to delete this item?"
+    );
 
-  const tableStyle = {
-    maxWidth: "15px",
-    overflowWrap: "break-word",
+    if (!confirmation) {
+      return;
+    }
+
+    axios
+      .delete(
+        `http://localhost:5000/deleteItem?id=${id}&reportid=${reportid}`,
+        config
+      )
+      .then(res => {
+        if (res.data.deletedCount > 0) {
+          refetch();
+          alert("item deleted");
+        }
+      });
   };
 
   return (
@@ -56,7 +72,12 @@ const Reported = () => {
                   ></textarea>
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-error">delete</button>
+                  <button
+                    onClick={() => deleteHandler(item.itemId, item._id)}
+                    className="btn btn-sm btn-error"
+                  >
+                    delete
+                  </button>
                 </td>
               </tr>
             ))}
