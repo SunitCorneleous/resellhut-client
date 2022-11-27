@@ -1,6 +1,6 @@
 # Resellx Client
 
-## Live link:
+## Live link: https://resellx-9f712.web.app/
 
 ## features:
 
