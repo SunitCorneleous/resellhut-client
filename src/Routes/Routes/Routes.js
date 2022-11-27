@@ -16,6 +16,8 @@ import Reported from "./../../Pages/Dashboard/Reported/Reported";
 import ErrorPage from "./../../Pages/ErrorPage/ErrorPage";
 import { config } from "../../utilities/authToken/authToken";
 import PaymentPage from "../../Pages/PaymentPage/PaymentPage";
+import Blogs from "../../Pages/Blogs/Blogs";
+import MyBuyers from "./../../Pages/Dashboard/MyBuyers/MyBuyers";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "/*",
         element: <ErrorPage></ErrorPage>,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
       {
         path: "/payment/:id",
@@ -99,6 +105,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/reported",
         element: <Reported></Reported>,
+      },
+      {
+        path: "/dashboard/mybuyers",
+        element: <MyBuyers></MyBuyers>,
       },
     ],
   },

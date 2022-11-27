@@ -46,8 +46,6 @@ const Advertised = ({ laptops }) => {
                   <div className="mt-3">
                     <IoLocation className="inline-block mb-1"></IoLocation>
                     <span>{laptop.location}</span>
-                    <br />
-                    <button className="btn btn-primary mt-5">book now</button>
                   </div>
                 </div>
               </div>

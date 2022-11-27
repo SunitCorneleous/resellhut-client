@@ -3,12 +3,17 @@ import { useLoaderData } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
+import Spinner from "../Shared/Spinner/Spinner";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const PaymentPage = () => {
   const data = useLoaderData();
   const { product, booking } = data;
+
+  if (data === null) {
+    return <Spinner></Spinner>;
+  }
 
   return (
     <div className="max-w-[1440px] py-8 mx-auto min-h-[70vh]">
@@ -27,8 +32,8 @@ const PaymentPage = () => {
           {/* product details */}
           <div className="text-xl md:text-xl p-5 m-3 bg-slate-300 shadow-md rounded leading-relaxed ">
             <div className=" mb-4">
-              <h2 className="font-semibold text-3xl">{product.name}</h2>
-              <p className="text-lg">Category: {product.category}</p>
+              <h2 className="font-semibold text-3xl">{product?.name}</h2>
+              <p className="text-lg">Category: {product?.category}</p>
             </div>
             <img
               src={product.image}

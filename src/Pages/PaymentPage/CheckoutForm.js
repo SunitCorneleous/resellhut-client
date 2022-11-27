@@ -74,8 +74,6 @@ const CheckoutForm = ({ product, booking }) => {
       setProcessing(false);
       toast.success("payment successful");
 
-      console.log(paymentIntent);
-
       // save payment info in db
       const paymentInfo = {
         transactionId: paymentIntent.id,
@@ -84,6 +82,7 @@ const CheckoutForm = ({ product, booking }) => {
         product: product.name,
         productId: product._id,
         bookingId: booking._id,
+        sellerEmail: booking.sellerEmail,
       };
 
       axios

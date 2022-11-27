@@ -84,11 +84,11 @@ const MyProducts = () => {
             </tr>
           </thead>
           <tbody>
-            {laptops.map((laptop, index) => (
+            {laptops?.map((laptop, index) => (
               <tr key={laptop._id} className="text-center">
                 <th>{index + 1}</th>
                 <td>{laptop.name}</td>
-                <td>{laptop.posted.slice(0, 10)}</td>
+                <td>{laptop.posted?.slice(0, 10)}</td>
                 <td>{laptop.resellPrice}</td>
                 <td>{laptop.saleStatus}</td>
                 <td>

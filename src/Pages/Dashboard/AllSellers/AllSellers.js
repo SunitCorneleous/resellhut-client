@@ -3,12 +3,7 @@ import axios from "axios";
 import React from "react";
 import Spinner from "../../Shared/Spinner/Spinner";
 import { toast } from "react-hot-toast";
-
-const config = {
-  headers: {
-    authorization: `bearer ${localStorage.getItem("accessToken")}`,
-  },
-};
+import { config } from "../../../utilities/authToken/authToken";
 
 const AllSellers = () => {
   const { data, refetch, isLoading } = useQuery({
