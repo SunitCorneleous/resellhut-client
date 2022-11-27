@@ -14,6 +14,7 @@ import AllSellers from "./../../Pages/Dashboard/AllSellers/AllSellers";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import Reported from "./../../Pages/Dashboard/Reported/Reported";
 import ErrorPage from "./../../Pages/ErrorPage/ErrorPage";
+import { config } from "../../utilities/authToken/authToken";
 
 export const router = createBrowserRouter([
   {
@@ -26,8 +27,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/category/:id",
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+        loader: async ({ params }) =>
+          fetch(`http://localhost:5000/category/${params.id}`, config),
         element: (
           <PrivateRoute>
             <Category></Category>

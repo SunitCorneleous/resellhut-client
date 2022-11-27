@@ -30,8 +30,9 @@ const BookNowModal = ({ productToBook }) => {
         },
       })
       .then(res => {
-        if (!res.data.product) {
+        if (res.data.acknowledged) {
           console.log(res);
+          alert("product bookded");
           form.reset();
           navigate("/dashboard/myorders");
         } else {
