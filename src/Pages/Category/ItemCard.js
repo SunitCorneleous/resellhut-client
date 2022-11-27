@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { IoLocation } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
+import { AiFillPhone } from "react-icons/ai";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import { config } from "../../utilities/authToken/authToken";
+import { toast } from "react-hot-toast";
 
 const ItemCard = ({ laptop, setProductToBook }) => {
   const { user } = useContext(AuthContext);
@@ -23,6 +25,7 @@ const ItemCard = ({ laptop, setProductToBook }) => {
     condition,
     details,
     sellerEmail,
+    phone,
   } = laptop;
 
   const reportItemHandler = () => {
@@ -51,7 +54,7 @@ const ItemCard = ({ laptop, setProductToBook }) => {
       .then(res => {
         console.log(res.data);
         if (res.data.acknowledged) {
-          alert("item reported");
+          toast.success("item reported");
         }
       });
   };
@@ -66,12 +69,17 @@ const ItemCard = ({ laptop, setProductToBook }) => {
       <div className="mx-3 py-4">
         <h2 className="text-2xl font-bold">{name}</h2>
         <div className="flex justify-between font-medium">
-          <p>
-            {sellerName}{" "}
-            {sellerVerification && (
-              <MdVerified className="text-blue-600 inline-block mb-1"></MdVerified>
-            )}
-          </p>
+          <div>
+            <p>
+              {sellerName}{" "}
+              {sellerVerification && (
+                <MdVerified className="text-blue-600 inline-block mb-1"></MdVerified>
+              )}
+            </p>
+            <p className="text-gray-500 text-sm">
+              {phone} <AiFillPhone className=" inline-block mb-1"></AiFillPhone>
+            </p>
+          </div>
           <p className=" text-gray-500">
             <IoLocation className="inline-block w-6 h-6 mb-1"></IoLocation>
             <span className="text-[16px]">{location}</span>

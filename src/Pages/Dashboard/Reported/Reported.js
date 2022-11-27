@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import { config } from "../../../utilities/authToken/authToken";
 import Spinner from "../../Shared/Spinner/Spinner";
+import { toast } from "react-hot-toast";
 
 const Reported = () => {
   const { data, isLoading, refetch } = useQuery({
@@ -35,7 +36,7 @@ const Reported = () => {
       .then(res => {
         if (res.data.deletedCount > 0) {
           refetch();
-          alert("item deleted");
+          toast.success("item deleted");
         }
       });
   };

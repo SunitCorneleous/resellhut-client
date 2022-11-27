@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import Spinner from "../../Shared/Spinner/Spinner";
+import { toast } from "react-hot-toast";
 
 const config = {
   headers: {
@@ -9,7 +11,7 @@ const config = {
 };
 
 const AllSellers = () => {
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["allsellers"],
     queryFn: () => {
       return fetch("http://localhost:5000/allsellers", config).then(res =>
@@ -22,8 +24,10 @@ const AllSellers = () => {
     axios
       .get(`http://localhost:5000/verifyseller?email=${email}`, config)
       .then(res => {
-        console.log(res);
-        refetch();
+        if (res.data.modifiedCount > 0) {
+          toast.success("Seller verified");
+          refetch();
+        }
       });
   };
 
@@ -42,10 +46,16 @@ const AllSellers = () => {
         config
       )
       .then(res => {
-        console.log(res);
-        refetch();
+        if (res.data.deletedCount > 0) {
+          toast.success("Seller deleted");
+          refetch();
+        }
       });
   };
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
 
   return (
     <div className="min-h-[70vh] w-full">

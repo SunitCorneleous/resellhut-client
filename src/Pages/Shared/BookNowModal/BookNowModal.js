@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./../../../Contexts/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const BookNowModal = ({ productToBook }) => {
   const { user } = useContext(AuthContext);
@@ -33,12 +34,12 @@ const BookNowModal = ({ productToBook }) => {
       .then(res => {
         if (res.data.acknowledged) {
           console.log(res);
-          alert("product bookded");
+          toast.success("product bookded");
           form.reset();
           navigate("/dashboard/myorders");
         } else {
           console.log(res);
-          alert(res.data.product);
+          toast(res.data.product);
         }
       });
   };

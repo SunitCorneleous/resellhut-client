@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import { toast } from "react-hot-toast";
 
 const AllBuyers = () => {
   const { data, refetch } = useQuery({
@@ -30,8 +31,10 @@ const AllBuyers = () => {
         },
       })
       .then(res => {
-        console.log(res);
-        refetch();
+        if (res.data.deletedCount > 0) {
+          toast.success("Buyer deleted");
+          refetch();
+        }
       });
   };
 

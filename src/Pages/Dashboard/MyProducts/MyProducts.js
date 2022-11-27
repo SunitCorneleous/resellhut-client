@@ -3,6 +3,7 @@ import { AuthContext } from "../../../Contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../../Shared/Spinner/Spinner";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -38,7 +39,9 @@ const MyProducts = () => {
         },
       })
       .then(res => {
-        console.log(res.data);
+        if (res.data.deletedCount > 0) {
+          toast.success("product deleted");
+        }
         refetch();
       });
   };
@@ -51,7 +54,9 @@ const MyProducts = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Product advertised");
+        }
         refetch();
       });
   };
