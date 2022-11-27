@@ -17,8 +17,6 @@ const useSaveUser = user => {
       axios
         .post(url, user)
         .then(res => {
-          console.log(res.data);
-
           if (res.data.acknowledged || res.data.exists) {
             setCreatedUserEmail(user.email);
           }

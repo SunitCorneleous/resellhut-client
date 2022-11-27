@@ -41,9 +41,8 @@ const Login = () => {
       .then(result => {
         const user = result.user;
 
-        console.log(user);
-
         setCreatedUserEmail(user.email);
+
         toast.success("User logged in");
       })
       .catch(error => toast.error(error.message));

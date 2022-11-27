@@ -3,6 +3,7 @@ import Advertised from "../Advertised/Advertised";
 import Categories from "../Categories/Categories";
 import HomeBanner from "../HomeBanner/HomeBanner";
 import { useQuery } from "@tanstack/react-query";
+import UserReview from "../UserReview/UserReview";
 
 const Home = () => {
   const { data: laptops } = useQuery({
@@ -28,6 +29,7 @@ const Home = () => {
         {/* advertised section will render if advertised laptops exists */}
         {laptops?.length > 0 ? <Advertised laptops={laptops}></Advertised> : ""}
         <Categories></Categories>
+        <UserReview></UserReview>
       </div>
     </div>
   );
