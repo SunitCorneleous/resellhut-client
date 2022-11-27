@@ -44,10 +44,12 @@ const MyOrders = () => {
                 </th>
                 <td>{product.item}</td>
                 <td>{product.price}</td>
-                <td className="uppercase font-semibold">{product.status}</td>
+                <td className="uppercase font-semibold text-red-600">
+                  {product.status}
+                </td>
                 <td>
                   <Link
-                    to={`/payment/${product.productId}`}
+                    to={`/payment/${product._id}`}
                     className="btn btn-sm btn-primary"
                   >
                     pay
