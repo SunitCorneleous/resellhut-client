@@ -54,6 +54,7 @@ const AddProduct = () => {
               console.log(res.data);
               setLoading(false);
               if (res.data.acknowledged) {
+                alert("Product added successfully.");
                 navigate("/dashboard/myproducts");
               }
             });

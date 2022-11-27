@@ -1,9 +1,15 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 import { IoLocation } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
+import { AuthContext } from "../../Contexts/AuthProvider";
+import { config } from "../../utilities/authToken/authToken";
 
 const ItemCard = ({ laptop, setProductToBook }) => {
+  const { user } = useContext(AuthContext);
+
   const {
+    _id,
     name,
     image,
     sellerName,
@@ -16,7 +22,39 @@ const ItemCard = ({ laptop, setProductToBook }) => {
     posted,
     condition,
     details,
+    sellerEmail,
   } = laptop;
+
+  const reportItemHandler = () => {
+    const reason = window.prompt("Enter your reason: ");
+
+    const confitmation = window.confirm(
+      "Are you sure you want to report this item."
+    );
+
+    if (!confitmation) {
+      return;
+    }
+
+    const reportItem = {
+      itemId: _id,
+      name,
+      sellerName,
+      sellerEmail,
+      userName: user.displayName,
+      userEmail: user.email,
+      reason,
+    };
+
+    axios
+      .post("http://localhost:5000/reportItem", reportItem, config)
+      .then(res => {
+        console.log(res.data);
+        if (res.data.acknowledged) {
+          alert("item reported");
+        }
+      });
+  };
 
   return (
     <div className="min-w-[350px] max-w-[350px] h-auto m-3 mx-auto rounded-md bg-base-100 shadow-md">
@@ -63,7 +101,10 @@ const ItemCard = ({ laptop, setProductToBook }) => {
           <div>
             <p className="text-sm">Condition: {condition}</p>
             <p className="text-sm">Date posted: {posted.slice(0, 10)}</p>
-            <button className="btn btn-xs btn-ghost mt-3">
+            <button
+              className="btn btn-xs btn-ghost mt-3"
+              onClick={reportItemHandler}
+            >
               report product
             </button>
           </div>
