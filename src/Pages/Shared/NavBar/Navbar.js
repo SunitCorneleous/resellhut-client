@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import { toast } from "react-hot-toast";
+import { BsFillLaptopFill } from "react-icons/bs";
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
@@ -62,8 +63,9 @@ const Navbar = () => {
               {menuItems}
             </ul>
           </div>
-          <Link to="/" className="text-3xl font-semibold">
-            Resellx
+          <Link to="/" className="text-2xl md:text-3xl font-semibold">
+            Resellx{" "}
+            <BsFillLaptopFill className="inline-block w-8 h-8 mb-2"></BsFillLaptopFill>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
