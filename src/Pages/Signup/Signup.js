@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
 import useSaveUser from "../../hooks/useSaveUser";
@@ -13,15 +13,21 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // navigate to right route
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // save user to db
   const [userToSave, setUserToSave] = useState("");
   const token = useSaveUser(userToSave);
 
-  if (token) {
-    navigate("/");
-  }
+  // after getting token redirect to right route
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
+    }
+  }, [token, from, navigate]);
 
   const signUpHandler = data => {
     createUser(data.email, data.password)
