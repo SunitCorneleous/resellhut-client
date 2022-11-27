@@ -8,7 +8,7 @@ const useSaveUser = user => {
   const [token] = useToken(createdUserEmail);
 
   useEffect(() => {
-    const url = "http://localhost:5000/users";
+    const url = "https://resellx-server.vercel.app/users";
 
     if (user) {
       if (user.userType === "seller") {

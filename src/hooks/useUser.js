@@ -5,7 +5,7 @@ const useUser = email => {
   const [userLoading, setUserLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/usertype?email=${email}`)
+    fetch(`https://resellx-server.vercel.app/usertype?email=${email}`)
       .then(res => res.json())
       .then(data => {
         setUserType(data.userType);

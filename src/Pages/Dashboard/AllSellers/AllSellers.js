@@ -9,15 +9,18 @@ const AllSellers = () => {
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["allsellers"],
     queryFn: () => {
-      return fetch("http://localhost:5000/allsellers", config).then(res =>
-        res.json()
+      return fetch("https://resellx-server.vercel.app/allsellers", config).then(
+        res => res.json()
       );
     },
   });
 
   const verifySellerHandler = email => {
     axios
-      .get(`http://localhost:5000/verifyseller?email=${email}`, config)
+      .get(
+        `https://resellx-server.vercel.app/verifyseller?email=${email}`,
+        config
+      )
       .then(res => {
         if (res.data.modifiedCount > 0) {
           toast.success("Seller verified");
@@ -37,7 +40,7 @@ const AllSellers = () => {
 
     axios
       .delete(
-        `http://localhost:5000/allsellers?id=${id}&email=${email}`,
+        `https://resellx-server.vercel.app/allsellers?id=${id}&email=${email}`,
         config
       )
       .then(res => {

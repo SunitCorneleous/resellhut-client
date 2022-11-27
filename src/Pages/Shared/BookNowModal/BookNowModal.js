@@ -26,7 +26,7 @@ const BookNowModal = ({ productToBook }) => {
     };
 
     axios
-      .post("http://localhost:5000/bookings", bookingObj, {
+      .post("https://resellx-server.vercel.app/bookings", bookingObj, {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },

@@ -9,7 +9,7 @@ const Home = () => {
   const { data: laptops } = useQuery({
     queryKey: ["advertisement"],
     queryFn: () => {
-      return fetch("http://localhost:5000/advertisement", {
+      return fetch("https://resellx-server.vercel.app/advertisement", {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },

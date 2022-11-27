@@ -11,11 +11,14 @@ const MyBuyers = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["email", user.email],
     queryFn: () => {
-      return fetch(`http://localhost:5000/allbuyers?email=${user.email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then(res => res.json());
+      return fetch(
+        `https://resellx-server.vercel.app/allbuyers?email=${user.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then(res => res.json());
     },
   });
 

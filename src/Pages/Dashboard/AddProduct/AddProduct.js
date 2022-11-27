@@ -50,7 +50,7 @@ const AddProduct = () => {
           };
 
           axios
-            .post("http://localhost:5000/products", product, config)
+            .post("https://resellx-server.vercel.app/products", product, config)
             .then(res => {
               console.log(res.data);
               setLoading(false);

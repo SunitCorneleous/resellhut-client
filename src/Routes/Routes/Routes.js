@@ -31,7 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/category/:id",
         loader: async ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`, config),
+          fetch(
+            `https://resellx-server.vercel.app/category/${params.id}`,
+            config
+          ),
         element: (
           <PrivateRoute>
             <Category></Category>
@@ -57,7 +60,7 @@ export const router = createBrowserRouter([
       {
         path: "/payment/:id",
         loader: async ({ params }) =>
-          fetch(`http://localhost:5000/products/${params.id}`, {
+          fetch(`https://resellx-server.vercel.app/products/${params.id}`, {
             headers: {
               authorization: `bearer ${localStorage.getItem("accessToken")}`,
             },

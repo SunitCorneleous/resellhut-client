@@ -15,11 +15,14 @@ const MyProducts = () => {
   } = useQuery({
     queryKey: ["email", user.email],
     queryFn: () => {
-      return fetch(`http://localhost:5000/myproducts?email=${user.email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then(res => res.json());
+      return fetch(
+        `https://resellx-server.vercel.app/myproducts?email=${user.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then(res => res.json());
     },
   });
 
@@ -33,7 +36,7 @@ const MyProducts = () => {
     }
 
     axios
-      .delete(`http://localhost:5000/products/${id}`, {
+      .delete(`https://resellx-server.vercel.app/products/${id}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -47,7 +50,7 @@ const MyProducts = () => {
   };
 
   const advertiseHandler = id => {
-    fetch(`http://localhost:5000/advertisement/${id}`, {
+    fetch(`https://resellx-server.vercel.app/advertisement/${id}`, {
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },

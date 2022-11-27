@@ -9,8 +9,8 @@ const Reported = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["reportItem"],
     queryFn: () => {
-      return fetch("http://localhost:5000/reportItem", config).then(res =>
-        res.json()
+      return fetch("https://resellx-server.vercel.app/reportItem", config).then(
+        res => res.json()
       );
     },
   });
@@ -30,7 +30,7 @@ const Reported = () => {
 
     axios
       .delete(
-        `http://localhost:5000/deleteItem?id=${id}&reportid=${reportid}`,
+        `https://resellx-server.vercel.app/deleteItem?id=${id}&reportid=${reportid}`,
         config
       )
       .then(res => {

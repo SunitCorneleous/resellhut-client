@@ -8,11 +8,14 @@ const MyOrders = () => {
   const { data } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: () => {
-      return fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then(res => res.json());
+      return fetch(
+        `https://resellx-server.vercel.app/bookings?email=${user?.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then(res => res.json());
     },
   });
 

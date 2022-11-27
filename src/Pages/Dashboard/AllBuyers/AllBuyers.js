@@ -7,7 +7,7 @@ const AllBuyers = () => {
   const { data, refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: () => {
-      return fetch("http://localhost:5000/buyers", {
+      return fetch("https://resellx-server.vercel.app/buyers", {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -25,11 +25,14 @@ const AllBuyers = () => {
     }
 
     axios
-      .delete(`http://localhost:5000/buyers?id=${id}&email=${email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .delete(
+        `https://resellx-server.vercel.app/buyers?id=${id}&email=${email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then(res => {
         if (res.data.deletedCount > 0) {
           toast.success("Buyer deleted");

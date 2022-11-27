@@ -12,7 +12,9 @@ const Categories = () => {
   } = useQuery({
     queryKey: ["categories"],
     queryFn: () =>
-      axios.get("http://localhost:5000/categories").then(res => res.data),
+      axios
+        .get("https://resellx-server.vercel.app/categories")
+        .then(res => res.data),
   });
 
   if (error) {

@@ -50,7 +50,7 @@ const ItemCard = ({ laptop, setProductToBook }) => {
     };
 
     axios
-      .post("http://localhost:5000/reportItem", reportItem, config)
+      .post("https://resellx-server.vercel.app/reportItem", reportItem, config)
       .then(res => {
         console.log(res.data);
         if (res.data.acknowledged) {

@@ -17,7 +17,7 @@ const CheckoutForm = ({ product, booking }) => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://resellx-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ price: resellPrice }),
@@ -86,7 +86,7 @@ const CheckoutForm = ({ product, booking }) => {
       };
 
       axios
-        .post("http://localhost:5000/payment", paymentInfo, config)
+        .post("https://resellx-server.vercel.app/payment", paymentInfo, config)
         .then(res => {
           if (res.data.acknowledged) {
             console.log(res.data);
