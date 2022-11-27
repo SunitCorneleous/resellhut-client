@@ -6,6 +6,7 @@ import { AuthContext } from "./../../Contexts/AuthProvider";
 import useSaveUser from "../../hooks/useSaveUser";
 import { inputStyle } from "../../utilities/styles/styles";
 import useToken from "./../../hooks/useToken";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const { googleLogin, loginUser } = useContext(AuthContext);
@@ -43,8 +44,9 @@ const Login = () => {
         console.log(user);
 
         setCreatedUserEmail(user.email);
+        toast.success("User logged in");
       })
-      .catch(error => console.log(error));
+      .catch(error => toast.error(error.message));
   };
 
   const googleLoginHandler = () => {
@@ -57,8 +59,9 @@ const Login = () => {
 
         // save to db
         setUserToSave({ name, email, userType: "user" });
+        toast.success("User logged in");
       })
-      .catch(error => console.error(error));
+      .catch(error => toast.error(error.message));
   };
 
   return (

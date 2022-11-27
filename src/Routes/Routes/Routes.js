@@ -49,7 +49,13 @@ export const router = createBrowserRouter([
         element: <ErrorPage></ErrorPage>,
       },
       {
-        path: "/payment",
+        path: "/payment/:id",
+        loader: async ({ params }) =>
+          fetch(`http://localhost:5000/products/${params.id}`, {
+            headers: {
+              authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }),
         element: (
           <PrivateRoute>
             <PaymentPage></PaymentPage>

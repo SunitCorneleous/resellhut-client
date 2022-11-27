@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import useSaveUser from "../../hooks/useSaveUser";
 import { inputStyle } from "../../utilities/styles/styles";
 import { AuthContext } from "./../../Contexts/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const Signup = () => {
   const { createUser, updateUser, googleLogin } = useContext(AuthContext);
@@ -51,6 +52,7 @@ const Signup = () => {
             };
 
             setUserToSave(userToSave);
+            toast.success("User created successfully");
           })
           .catch(error => console.error("UPDATE USER ERROR: ", error));
       })
@@ -67,6 +69,7 @@ const Signup = () => {
 
         // save to db
         setUserToSave({ name, email, userType: "user" });
+        toast.success("User logged in");
       })
       .catch(error => console.error(error));
   };
