@@ -18,7 +18,7 @@
 
 - Navbar has a option named dashboard which will render according to user type.
 
-- In dashboard route user can book, report and pay for an laptop. Seller can add and view thier added products and the users who bought their products. Admin can see, delete any users and sellers. Also admin can delete reported items.
+- In dashboard route user can book, report and pay for an laptop. Seller can add and view thier added products and the users who bought their products. Admin can see, delete any users and sellers. Also admin can delete reported items and make seller verified.
 
 - Blogs route, meaningful 404 page, jwt implementation, axios, react query used for api call.
 
