@@ -18,11 +18,13 @@ import { config } from "../../utilities/authToken/authToken";
 import PaymentPage from "../../Pages/PaymentPage/PaymentPage";
 import Blogs from "../../Pages/Blogs/Blogs";
 import MyBuyers from "./../../Pages/Dashboard/MyBuyers/MyBuyers";
+import ErrorElementPage from "../../Pages/ErrorElementPage/ErrorElementPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorElementPage></ErrorElementPage>,
     children: [
       {
         path: "/",
