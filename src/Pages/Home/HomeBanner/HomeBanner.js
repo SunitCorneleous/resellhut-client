@@ -7,11 +7,11 @@ const HomeBanner = () => {
     <div className="md:w-10/12 mx-auto py-12 rounded-md flex-col md:flex-row flex justify-around items-center">
       <div className="md:w-[50%] w-11/12">
         <h1 className="text-accent font-semibold md:text-5xl text-2xl">
-          Buy and Sell laptops
+          Buy and Sell used laptops
         </h1>
         <p className="text-2xl mt-2 text-slate-600">
           <span className="text-primary font-bold text-4xl">#1</span> site to
-          buy and sell laptops
+          buy and sell used laptops
         </p>
         <div className="mt-5">
           <p className="text-2xl text-slate-600">
