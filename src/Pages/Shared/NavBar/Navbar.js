@@ -64,7 +64,7 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/" className="text-2xl md:text-3xl font-semibold">
-            Resellx{" "}
+            ResellHut{" "}
             <BsFillLaptopFill className="inline-block w-8 h-8 mb-2"></BsFillLaptopFill>
           </Link>
         </div>

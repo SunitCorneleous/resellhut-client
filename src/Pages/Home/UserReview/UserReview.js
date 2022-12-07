@@ -11,7 +11,7 @@ const UserReview = () => {
       name: "Mark Rober",
       img: "https://i.ibb.co/qYQXZWN/jack-finnigan-rri-AI0nhcbc-1024x1024.jpg",
       details:
-        "I had to sell my laptop to get a new one but i could not get right customer, then I found Resellx posted my laptop wiht details and sold in 2 days. I am very happy with their service.",
+        "I had to sell my laptop to get a new one but i could not get right customer, then I found ResellHut posted my laptop wiht details and sold in 2 days. I am very happy with their service.",
       item: "item1",
     },
     {
@@ -35,7 +35,7 @@ const UserReview = () => {
       name: "William Stitt",
       img: "https://i.ibb.co/sWy1fRf/william-stitt-119525-1024x889.jpg",
       details:
-        "I need a laptop for my job and study but I could not afford the a new laptop. So I checked Resellx and found the right laptop for me.",
+        "I need a laptop for my job and study but I could not afford the a new laptop. So I checked ResellHut and found the right laptop for me.",
       item: "item4",
     },
   ];

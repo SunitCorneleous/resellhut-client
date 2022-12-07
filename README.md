@@ -1,8 +1,8 @@
-# Resellx Client
+# ResellHut Client
 
-## Live link: https://resellx-9f712.web.app/
+## [Live link](https://resellx-9f712.web.app/)
 
-## Resellx is a is website where people can buy and sell their used laptops. Users can use it as either seller or buyer or admin.
+## ResellHut is a is website where people can buy and sell their used laptops. Users can use it as either seller or buyer or admin.
 
 ## features:
 
@@ -36,9 +36,3 @@
 - Tailwind
 - React Icons
 - React Slideshow Image
-
-## Admin Info:
-
-- adminEmail: admin@resellx.com
-
-- adminPassword: admin2022
