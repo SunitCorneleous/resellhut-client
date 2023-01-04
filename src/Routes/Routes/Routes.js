@@ -32,11 +32,6 @@ export const router = createBrowserRouter([
       },
       {
         path: "/category/:id",
-        loader: async ({ params }) =>
-          fetch(
-            `https://resellx-server.vercel.app/category/${params.id}`,
-            config
-          ),
         element: (
           <PrivateRoute>
             <Category></Category>
